@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/starting_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <header id="main-navigation">
+        <h1><a href="/">Kacper' Blog</a></h1>
+        <nav>
+            <a href="">All posts</a>
+        </nav>
+    </header>
+
+    <section id="welcome">
+        <header>
+            <img src="{% static 'blog/images/sigma.jpg' %}" alt="Kacper - The author of this Blog">
+            <h2>KACPER'S BLOG</h2>
+        </header>
+        <p>Welcome to my personal blog where I share my thoughts, experiences, and projects!</p>
+    </section>
+
+    <section id="latest-posts">
+        <h2>My Latest Thoughts</h2>
+        <ul>
+            <li>
+                <article class="post">
+                    <a href="">
+                        <img src="{% static 'blog/images/mountains.jpg' %}" alt="Mountain Hiking">
+                        <div class="post__content">
+                            <h3>Mountain Hiking</h3>
+                            <p>This is my first blog post. I am excited to start this journey!
+                            </p>
+                        </div>
+                    </a>
+                </article>
+            </li>
+        </ul>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Welcome to my blog! I'm Kacper, and I love sharing my thoughts and experiences.</p>
+        <p>
+            Here, you'll find posts about my interests, projects, and daily life. Stay tuned for more updates!
+        </p>
+    </section>
+
+{% endblock %}
