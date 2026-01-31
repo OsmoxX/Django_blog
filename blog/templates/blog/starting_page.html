@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block title %}My Blog{% endblock %}
 
 {% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/post.css' %}">
     <link rel="stylesheet" href="{% static 'blog/starting_page.css' %}">
 {% endblock %}
 
 {% block content %}
-    <header id="main-navigation">
-        <h1><a href="/">Kacper' Blog</a></h1>
-        <nav>
-            <a href="">All posts</a>
-        </nav>
-    </header>
 
     <section id="welcome">
         <header>
@@ -26,18 +22,9 @@
     <section id="latest-posts">
         <h2>My Latest Thoughts</h2>
         <ul>
-            <li>
-                <article class="post">
-                    <a href="">
-                        <img src="{% static 'blog/images/mountains.jpg' %}" alt="Mountain Hiking">
-                        <div class="post__content">
-                            <h3>Mountain Hiking</h3>
-                            <p>This is my first blog post. I am excited to start this journey!
-                            </p>
-                        </div>
-                    </a>
-                </article>
-            </li>
+            {% for post in latest_posts %}
+                {% include 'blog/includes/post.html' %}
+            {% endfor %}
         </ul>
     </section>
 
