@@ -9,7 +9,7 @@ class Post(models.Model):
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True, related_name='posts')
     content = models.TextField(validators=[MinLengthValidator(10)])
     date = models.DateField(auto_now=True)
-    image = models.CharField(max_length=100, null=True, blank=True)
+    image = models.ImageField(upload_to='posts', null=True, blank=True)
     tags = models.ManyToManyField('Tag', blank=True)
     slug = models.SlugField(unique=True, null=False)
 
