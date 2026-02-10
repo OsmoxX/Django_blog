@@ -43,7 +43,8 @@ class PostDetailView(View):
         context = {
             'post': post,
             'post_tags': post.tags.all(),
-            'comment_form': CommentForm()
+            'comment_form': CommentForm(),
+            'comments': post.comments.all().order_by('-id')  # Pobieramy komentarze związane z postem, sortując je malejąco po ID
         }
         return render(request, 'blog/post-detail.html', context)
 
@@ -61,7 +62,8 @@ class PostDetailView(View):
         context = {
             'post': post,
             'post_tags': post.tags.all(),
-            'comment_form': comment_form
+            'comment_form': comment_form,
+            'comments': post.comments.all().order_by('-id')  # Pobieramy komentarze związane z postem, sortując je malejąco po ID
         }
         return render(request, 'blog/post-detail.html', context)
 

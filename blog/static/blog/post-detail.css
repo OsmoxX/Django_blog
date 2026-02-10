@@ -1,14 +1,31 @@
-body {
-  background-color: #e7e7e7;
+/* --- BLOKI NA SAMEJ GÓRZE (Odstęp od nawigacji) --- */
+
+#alert {
+  text-align: center;
+  background-color: rgb(228, 159, 159);
+  width: 90%;
+  max-width: 40rem;
+  /* 7rem: 5rem na nawigację z app.css + 2rem przerwy */
+  margin: 7rem auto 0 auto; 
+  border: 1px solid red;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
 }
 
-#main-navigation {
+#alert a {
+  text-decoration: none;
+  border: 1px solid red;
   background-color: #390281;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  color: white;
+  padding: 0.25rem 1rem;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 0.5rem;
 }
 
 #summary {
-  margin: 8rem auto 3rem auto;
+  /* 7rem odstępu, aby nie chował się pod paskiem, gdy nie ma błędu */
+  margin: 7rem auto 3rem auto;
   padding: 2rem;
   width: 90%;
   max-width: 90rem;
@@ -19,10 +36,16 @@ body {
   height: 22rem;
 }
 
+/* Trik: jeśli błąd jest widoczny, fioletowy blok summary potrzebuje mniejszego marginesu */
+#alert + #summary {
+  margin-top: 2rem;
+}
+
 #summary h2 {
   color: white;
   font-size: 4.5rem;
-  margin-bottom: 0.25rem;
+  /* 1.5rem, aby litera 'y' w "Wycieczka" nie dotykała tagów */
+  margin-bottom: 1.5rem;
 }
 
 #summary article {
@@ -41,22 +64,15 @@ body {
   border-radius: 12px;
   transform: rotateZ(5deg);
   border: 5px solid white;
-  margin-bottom: 1rem;
-
 }
 
-#summary address {
+#summary address, #summary time, #summary a {
   font-weight: bold;
-}
-
-#summary a{
   color: white;
   text-decoration: none;
 }
 
-#summary time {
-  font-weight: bold;
-}
+/* --- TREŚĆ POSTA I TAGI --- */
 
 main {
   width: 90%;
@@ -70,10 +86,13 @@ main {
 
 .tag {
   background-color: white;
-  color:#5706c0;
+  color: #5706c0;
   padding: 0.5rem 1rem;
   border-radius: 8px;
+  margin-right: 0.5rem;
 }
+
+/* --- FORMULARZ KOMENTARZY (Z elastycznym textarea) --- */
 
 #comment-form {
   width: 90%;
@@ -81,8 +100,15 @@ main {
   margin: 3rem auto;
   border-radius: 12px;
   background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 8px rgba(155, 155, 155, 0.25);
   padding: 0.5rem 1.5rem;
+}
+
+#comment-form textarea {
+  min-height: 1.5rem; /* Małe na start */
+  height: auto;
+  resize: none;
+  overflow-y: hidden;
 }
 
 #comment-form button {
@@ -94,15 +120,12 @@ main {
   cursor: pointer;
 }
 
-#comment-form button:hover,
-#comment-form button:active {
+#comment-form button:hover {
   background-color: #5706c0;
-  border-color: #5706c0;
 }
 
 .form-control {
   margin-bottom: 1rem;
-
 }
 
 .form-control label {
@@ -111,11 +134,92 @@ main {
   font-weight: bold;
 }
 
-.form-control input,
-.form-control textarea {
+.form-control input, .form-control textarea {
   display: block;
   width: 100%;
   padding: 0.25rem;
   border-radius: 6px;
   font: inherit;
+  border: 1px solid #ccc;
+}
+
+/* --- BŁĘDY I WALIDACJA --- */
+
+.errorlist {
+  color: red;
+  margin-bottom: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.invalid label { color: red; }
+.invalid input, .invalid textarea {
+  border-color: red;
+  background-color: rgb(228, 159, 159);
+}
+
+#comments {
+  width: 90%;
+  max-width: 50rem;
+  margin: 4rem auto;
+}
+
+#comments h2 {
+  color: #390281;
+  font-size: 2rem;
+  border-bottom: 3px solid #5706c0;
+  display: inline-block;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  display: block;
+  text-align: center;
+}
+
+.comment {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  border-left: 6px solid #5706c0;
+}
+
+.comment p:first-of-type {
+  flex: 0 0 12rem;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+  border-right: 1px solid #eee;
+  padding-right: 1rem;
+}
+
+.comment strong {
+  display: block;
+  color: #5706c0;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.comment p:last-of-type {
+  flex: 1;
+  margin: 0;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+/* --- RESPONSYWNOŚĆ --- */
+
+@media (max-width: 600px) {
+  .comment { flex-direction: column; gap: 1rem; }
+  .comment p:first-of-type {
+    flex: none;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+    width: 100%;
+  }
 }

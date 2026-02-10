@@ -10,6 +10,14 @@
 {% endblock %}
 
 {% block content %}
+    {% if comment_form.errors %}
+        <div id="alert">
+            <h2>There were errors in your comment form.</h2>
+            <p>Please correct them and try again.</p>
+            <a href="#comment-form">Fix!</a>
+        </div>
+    {% endif %}
+
     <section id="summary">
         <h2>{{ post.title }}</h2>
         <div>
@@ -29,12 +37,25 @@
     <main>
         {{ post.content|linebreaks }}
     </main>
+
+     <section id="comments">
+        <h2>Comments</h2>
+        {% for comment in comments %}
+            <div class="comment">
+                <p><strong>{{ comment.user_name }}</strong> <span>{{ comment.user_email }}</span></p>
+                <p>{{ comment.text|linebreaks }}</p>
+            </div>
+        {% empty %}
+            <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </section>
+
     <section id="comment-form">
         <h2>Leave a Comment</h2>
         <form action="{% url 'post-detail-page' post.slug %}" method="POST">
             {% csrf_token %}
             {% for form_field in comment_form %}
-                <div class="form-control">
+                <div class="form-control {% if form_field.errors %} invalid {% endif %}">
                     {{ form_field.label_tag }}
                     {{ form_field }}
                     {{ form_field.errors }}
@@ -44,17 +65,22 @@
         </form>
     </section>
     </div>
-     <section id="comments">
-        <h2>Comments</h2>
-        {% for comment in post.comments.all %}
-            <div class="comment">
-                <p><strong>{{ comment.user_name }}</strong> ({{ comment.user_email }}) says:</p>
-                <p>{{ comment.text|linebreaks }}</p>
-            </div>
-        {% empty %}
-            <p>No comments yet. Be the first to comment!</p>
-        {% endfor %}
-    </section>
+
+    <script>
+      const textarea = document.querySelector('#comment-form textarea');
+
+      if (textarea) {
+        textarea.addEventListener('input', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        if (textarea.value) {
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+        }
+      }
+    </script>
+
 {% endblock %}
 
 
