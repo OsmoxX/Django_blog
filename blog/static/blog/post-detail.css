@@ -36,6 +36,26 @@
   height: 22rem;
 }
 
+#read-later {
+  margin: 2rem 0;
+}
+
+#read-later button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+}
+
+#read-later button:hover,
+#read-later button:active {
+  background-color: white;
+  color: #5706c0;
+}
+
 /* Trik: jeśli błąd jest widoczny, fioletowy blok summary potrzebuje mniejszego marginesu */
 #alert + #summary {
   margin-top: 2rem;
